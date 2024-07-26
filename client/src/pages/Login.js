@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { FaEyeSlash } from "react-icons/fa";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 
@@ -6,11 +6,8 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { FaEye } from "react-icons/fa";
 
-import {useDispatch} from "react-redux"
-import { setUser,setToken } from "../redux/userSlice";
-
-
-
+import { useDispatch } from "react-redux";
+import { setUser, setToken } from "../redux/userSlice";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -19,8 +16,6 @@ const Login = () => {
     password: "",
   });
   const dispatch = useDispatch();
-  
-
 
   const [showPassword, setShowPassword] = useState(false);
   const handleOnChange = (e) => {
@@ -42,28 +37,27 @@ const Login = () => {
       //   "http://localhost:8080/api/login",
       //   data
       // );
-      const URL = "/api/login"
+      const URL = "/api/login";
       const response = await axios({
         method: "POST",
         url: URL,
         data: data,
-        header:{
-          "Content-type" : "application/json"
+        header: {
+          "Content-type": "application/json",
         },
-        credentials : true
-      })
+        credentials: true,
+      });
       toast.success(response.data.message);
       if (response.data.success) {
         dispatch(setToken(response?.data?.token));
         dispatch(setUser(response?.data?.data));
-        // localStorage.setItem("token", response?.data?.token);
-        
+        localStorage.setItem("token", response?.data?.token);
+
         setData({
           email: "",
           password: "",
         });
-        navigate("/home");
-        
+        navigate("/");
       }
       console.log(response.data.token);
     } catch (error) {

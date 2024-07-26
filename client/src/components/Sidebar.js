@@ -12,10 +12,12 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
 import AddUser from "./AddUser";
-const Sidebar = () => {
+import Avatar from "./Avatar";
+const Sidebar = ({user}) => {
   const dispatch = useDispatch();
   const nav = useNavigate();
-  const user = useSelector((state) => state.user);
+
+  
   const [settingUser, setSettingUser] = useState(false);
   const [addUser, setAddUser] = useState(false);
   const controlModal = (item) => {
@@ -44,7 +46,7 @@ const Sidebar = () => {
       if (response.data.success) {
         toast.success("Log out successfully");
         dispatch(logout());
-        nav("/");
+        nav("/login");
       }
     } catch (err) {
       console.log(err);
@@ -80,7 +82,7 @@ const Sidebar = () => {
             }}
             className="flex justify-center hover:bg-slate-500 items-center py-5  text-black"
           >
-            <IoMdSettings size={25} />
+            <Avatar url={user.profile_pic} userId={user._id} />
           </div>
         </div>
         <div className="w-full">

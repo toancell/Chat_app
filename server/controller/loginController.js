@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const loginController = async (req,res) => {
     try{
         const {email,password} = req.body;
-        const user =await UserModel.findOne({email})
+        const user = await UserModel.findOne({email})
         if(!user){
             return res.status(404).json({
                 message: "Email khong ton tai",
