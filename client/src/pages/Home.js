@@ -4,9 +4,11 @@ import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser,logout,setOnlineUser } from "../redux/userSlice";
+import { setUser,logout,setOnlineUser ,setSocketConnection} from "../redux/userSlice";
 import io from "socket.io-client"
+import { useLocation } from "react-router-dom";
 const Home = () => {
+  const location = useLocation()
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const nav = useNavigate();
@@ -45,13 +47,15 @@ const Home = () => {
       console.log("chat", data)
       dispatch(setOnlineUser(data));
     })
+    dispatch(setSocketConnection(socketConnection));
     return () =>{
       socketConnection.disconnect()
     }
   }, []);
+  const mainPage = location.pathname === "/"
   return (
-    <div className="max-h-screen h-[100vh] grid lg:grid-cols-[300px,1fr] ">
-      <section className="bg-slate-500 ">
+    <div className="max-h-screen h-[100vh] grid lg:grid-cols-[400px,1fr] ">
+      <section className={`bg-slate-500 ${!mainPage && "hidden"} lg:block`} >
         <Sidebar user={user} />
       </section>
       

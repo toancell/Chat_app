@@ -1,7 +1,7 @@
 const UserModel = require('../models/userModel');
 
 const bcrypt = require('bcrypt');
-
+const hassPassword = require('../helpers/hashPassword');
 
 const registerController = async (req,res) =>{
     try{
@@ -14,8 +14,7 @@ const registerController = async (req,res) =>{
             })
         }
 
-        const salt = await bcrypt.genSalt(10)
-        const hashpassword = await bcrypt.hash(password, salt)
+        const hashpassword = await hassPassword(password)
 
         const payload= {
             name, password: hashpassword, email, profile_pic

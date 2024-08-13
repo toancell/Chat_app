@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import CardUser from "./CardUser";
-const AddUser = () => {
+const AddUser = ({onClose}) => {
   const [search, setSearch] = useState("");
   const [listUser, setListUser] = useState([]);
   
@@ -41,11 +41,7 @@ const AddUser = () => {
   
   return (
     <div className="w-full h-full">
-      <div className="bg-slate-800 shadow-lg w-full py-2 px-2">
-        <h1 className="text-xl font-bold text-center my-auto text-white ">
-          Search user
-        </h1>
-      </div>
+      
       <div className=" relative py-2 ">
         <div className="px-2">
           <input
@@ -67,7 +63,7 @@ const AddUser = () => {
           ) : (
             <div className="flex flex-col w-full pt-2">
               {listUser.map((item) => (
-                <CardUser key={item._id} item={item} />
+                <CardUser onClose={onClose} key={item._id} item={item} />
               ))}
             </div>
           )}

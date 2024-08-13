@@ -64,7 +64,7 @@ const RegisterPage = () => {
                     profile_pic:"", 
                 })
             }
-            navigate("/")
+            navigate("/login")
         }catch(error){
             toast.error(error?.response?.data?.message)
             console.log(error)
@@ -147,7 +147,7 @@ const RegisterPage = () => {
                 </button>
             </form>
             <div className='mt-2'>
-            <p className="text-sm">Already have account ? <NavLink to={"/"} className="text-blue-900 font-semibold text-sm hover:underline">Login</NavLink>
+            <p className="text-sm">Already have account ? <NavLink to={"/login"} className="text-blue-900 font-semibold text-sm hover:underline">Login</NavLink>
             </p>
             </div>
         </div>

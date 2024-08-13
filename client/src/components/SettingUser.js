@@ -12,21 +12,22 @@ const SettingUser = ({ onClose, user }) => {
     name: user?.name,
     profile_pic: user?.profile_pic,
   });
-  useEffect(() => {
-    setUpdateUser((prev) => {
-      return { ...prev, ...user };
-    });
-  }, [user]);
+  // useEffect(() => {
+  //   setUpdateUser((prev) => {
+  //     return { ...prev, ...user };
+  //   });
+  // }, [user]);
   const handleChangeUser = (e) => {
     const { name, value } = e.target;
     setUpdateUser((prev) => {
       return { ...prev, [name]: value };
     });
-    console.log(updateUser);
+
   };
   const handleChangeProfilePicture = async (e) => {
     const file = e.target.files[0];
     toast("Take few minutes to update profile picture")
+    
     if (file) {
       try {
         const new_profile_pic = await uploadFile(file);
@@ -34,13 +35,14 @@ const SettingUser = ({ onClose, user }) => {
           ...prev,
           profile_pic: new_profile_pic?.url,
         }));
-        
+        console.log("update123",updateUser)
       } catch (err) {
         toast.error("Failed to upload profile picture");
       }
     }
-    console.log(updateUser.profile_pic);
+    
   };
+  
   const changeUser = async (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -50,10 +52,10 @@ const SettingUser = ({ onClose, user }) => {
         url: URL,
         method: "POST",
         data: updateUser,
-        header: {
+        headers: {
           "Content-type": "application/json",
         },
-        credentials: true,
+        withCredentials: true,
       });
       dispatch(setUser(response.data.data));
       onClose()
@@ -76,7 +78,7 @@ const SettingUser = ({ onClose, user }) => {
             />
             <div className="flex flex-col gap-2">
               <label className="relative cursor-pointer border-2 py-1 px-2 rounded-full  hover:bg-gray-200  ">
-                <span>Change profile</span>
+                <span className="border-b-1">Change profile</span>
                 <input
                   type="file"
                   className="absolute w-full opacity-0 cursor-pointer"

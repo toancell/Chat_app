@@ -5,7 +5,6 @@ import Login from "../pages/Login"
 import Home from "../pages/Home"
 import MessagePage from "../components/MessagePage"
 import AuthLayout from '../layout/AuthLayout'
-import CheckPasswordPage from "../pages/CheckPasswordPage"
 import ForgotPassword from '../pages/ForgotPassword'
 
 const router= createBrowserRouter([

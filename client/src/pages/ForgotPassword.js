@@ -1,15 +1,37 @@
 import React, { useState } from 'react'
-
+import axios from 'axios'
+import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 const ForgotPassword = () => {
+  const navigate = useNavigate()
   const [email, setEmail] = useState("")
   const handleChange = (e) =>{
     e.preventDefault();
     setEmail(e.target.value);
     
   }
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log(email)
+   try{
+    const URL="/api/forgot-password";
+    const response = await axios({
+      method: "POST",
+      url: URL,
+      data: {email: email},
+      header: {
+        "Content-type": "application/json",
+      },
+      credentials: true,
+    });
+    if(response.data.success) {
+      navigate("/login")
+      toast("New Password is sent successfully")
+    }
+    console.log(response.data)
+   }catch(err){
+    console.log(err)
+    toast.error("Email khong ton tai")
+   }
   }
   return (
     <div className="mt-5 flex flex-col items-center">
